@@ -10,7 +10,7 @@ const Home = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 'feed': return <Feed />;
-      case 'alerts': return <Notifications />;
+      case 'notifications': return <Notifications />;
       case 'profile': return <Profile />;
       default: return <Feed />;
     }

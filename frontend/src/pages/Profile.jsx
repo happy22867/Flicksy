@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 import { getUserProfile, updateProfile, followUser, unfollowUser, getMyPosts, getAllPosts } from '../context/api';
 import PostCard from '../components/PostCard';
-import ConfirmModal from '../components/ConfirmModal';
-import EmojiPicker from 'emoji-picker-react';
 import '../styles/Profile.css';
 
 const Profile = () => {
@@ -27,14 +25,14 @@ const Profile = () => {
 
   useEffect(() => {
     fetchProfile();
-  }, [userId, currentUser?.id, currentUser?._id]);
+  }, [fetchProfile]);
 
   useEffect(() => {
     if (!profile) return;
     setBio(profile.bio || '');
   }, [profile]);
 
-  const fetchProfile = async (silent = false) => {
+  const fetchProfile = useCallback(async (silent = false) => {
     if (!silent) setLoading(true);
     try {
       if (isOwnProfile) {
@@ -53,7 +51,7 @@ const Profile = () => {
     } finally {
       if (!silent) setLoading(false);
     }
-  };
+  }, [isOwnProfile, currentUser, userId]);
 
   const handleUpdateBio = async () => {
     try {
@@ -65,10 +63,6 @@ const Profile = () => {
     } catch (error) {
       console.error('Error updating bio:', error);
     }
-  };
-
-  const onEmojiClick = (emojiObject) => {
-    setBio((prevBio) => prevBio + emojiObject.emoji);
   };
 
   const handleEmojiPickerToggle = () => {
@@ -110,8 +104,8 @@ const Profile = () => {
   };
 
   const displayName = profile?.name || profile?.username || 'User';
-  const followersList = profile?.followers || [];
-  const followingList = profile?.following || [];
+  const followersList = useMemo(() => profile?.followers || [], [profile?.followers]);
+  const followingList = useMemo(() => profile?.following || [], [profile?.following]);
 
   // Fetch user details for followers and following
   useEffect(() => {
