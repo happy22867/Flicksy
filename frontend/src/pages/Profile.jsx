@@ -6,6 +6,9 @@ import { getUserProfile, updateProfile, followUser, unfollowUser, getMyPosts, ge
 import PostCard from '../components/PostCard';
 import '../styles/Profile.css';
 
+const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
+
 const Profile = () => {
   const { userId } = useParams();
   const { user: currentUser, updateUser } = useAuth();
