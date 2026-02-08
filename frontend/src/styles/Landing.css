@@ -64,12 +64,18 @@
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
+.landing-features {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
 .feature-highlights {
   display: flex;
   justify-content: center;
   gap: 30px;
   margin-bottom: 50px;
-  flex-wrap: wrap;
 }
 
 .feature-item {
@@ -84,6 +90,7 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   transition: all 0.3s ease;
   min-width: 120px;
+  width: 120px;
 }
 
 .feature-item:hover {
