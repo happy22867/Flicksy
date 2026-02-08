@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useAuth } from '../context/AuthContext';
+
 import { signup as signupAPI, checkUsername } from '../context/api';
 import AuthLayout from '../components/AuthLayout';
 import '../styles/Auth.css';
