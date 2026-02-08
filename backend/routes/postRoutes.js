@@ -4,6 +4,8 @@ const path = require("path");
 const {
   createPost,
   getPosts,
+  getMyPosts,
+  getLikedPosts,
   likePost,
   commentPost,
   deletePost,
@@ -28,6 +30,8 @@ const router = express.Router();
 
 router.post("/", auth, upload.single("image"), createPost);
 router.get("/", getPosts);
+router.get("/my-posts", auth, getMyPosts);
+router.get("/liked", auth, getLikedPosts);
 router.post("/:id/like", auth, likePost);
 router.post("/:id/comment", auth, commentPost);
 router.delete("/:id", auth, deletePost);

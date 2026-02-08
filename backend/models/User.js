@@ -24,6 +24,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: ""
   },
+  profileImage: { type: String, default: "" },
+  coverImage: { type: String, default: "" },
   followers: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"

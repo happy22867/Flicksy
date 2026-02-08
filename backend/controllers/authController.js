@@ -5,29 +5,34 @@ const jwt = require("jsonwebtoken");
 
 exports.signup = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, username, email, password } = req.body;
 
-    
-    const emailExists = await User.findOne({ email });
+    if (!email || !password) {
+      return res.status(400).json({ message: "Email and password are required" });
+    }
+
+    const emailExists = await User.findOne({ email: email.toLowerCase() });
     if (emailExists) {
       return res.status(400).json({ message: "Email already registered" });
     }
 
-   
-    const nameExists = await User.findOne({ name });
-    if (nameExists) {
-      return res.status(400).json({ message: "This full name is already taken" });
+    const displayName = (name && name.trim()) || (username && username.trim()) || email.split("@")[0];
+    const finalUsername = (username && username.trim().toLowerCase()) || displayName.toLowerCase().replace(/\s/g, "");
+
+    const usernameExists = await User.findOne({ username: finalUsername });
+    if (usernameExists) {
+      return res.status(400).json({ message: "Username already taken" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await User.create({
-      name,
-      email,
+      name: displayName,
+      username: finalUsername,
+      email: email.toLowerCase(),
       password: hashedPassword
     });
 
-    
     const token = jwt.sign(
       { id: user._id, name: user.name },
       process.env.JWT_SECRET,
@@ -39,6 +44,7 @@ exports.signup = async (req, res) => {
       user: {
         id: user._id,
         name: user.name,
+        username: user.username,
         email: user.email,
         bio: user.bio || "",
         followers: [],
@@ -77,6 +83,7 @@ exports.login = async (req, res) => {
       user: {
         id: user._id,
         name: user.name,
+        username: user.username,
         email: user.email,
         bio: user.bio || "",
         followers: user.followers || [],

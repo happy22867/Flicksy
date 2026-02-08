@@ -86,18 +86,21 @@ exports.unfollowUser = async (req, res) => {
   }
 };
 
-// Update user profile (bio)
+// Update user profile (bio, etc.)
 exports.updateProfile = async (req, res) => {
   try {
-    const { bio, username } = req.body;
     const userId = req.user.id;
+    const update = {};
+    if (req.body.bio !== undefined) update.bio = req.body.bio;
+    if (req.body.username !== undefined && req.body.username.trim()) update.username = req.body.username.trim().toLowerCase();
 
     const user = await User.findByIdAndUpdate(
       userId,
-      { bio, username },
+      update,
       { new: true }
     ).select("-password");
 
+    if (!user) return res.status(404).json({ message: "User not found" });
     res.json(user);
   } catch (err) {
     res.status(500).json({ message: "Error updating profile" });

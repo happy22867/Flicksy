@@ -38,12 +38,29 @@ exports.createPost = async (req, res) => {
 // Get all posts
 exports.getPosts = async (req, res) => {
   try {
-    console.log('[postController] getPosts called, user:', req.user ? req.user.id || req.user : 'no-user');
     const posts = await Post.find().sort({ createdAt: -1 });
-    console.log(`[postController] fetched ${posts.length} posts`);
     res.json(posts);
   } catch (error) {
-    console.error('[postController] error fetching posts:', error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Get current user's posts
+exports.getMyPosts = async (req, res) => {
+  try {
+    const posts = await Post.find({ "user.userId": req.user.id }).sort({ createdAt: -1 });
+    res.json(posts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Get posts liked by current user
+exports.getLikedPosts = async (req, res) => {
+  try {
+    const posts = await Post.find({ "likes.userId": req.user.id }).sort({ createdAt: -1 });
+    res.json(posts);
+  } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
