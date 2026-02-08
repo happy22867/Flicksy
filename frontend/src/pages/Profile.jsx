@@ -6,7 +6,7 @@ import { getUserProfile, updateProfile, followUser, unfollowUser, getMyPosts, ge
 import PostCard from '../components/PostCard';
 import '../styles/Profile.css';
 
-const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
 
 
 const Profile = () => {
@@ -19,6 +19,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
   const [followLoading, setFollowLoading] = useState(false);
   const [listModal, setListModal] = useState(null);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   
   const [followersDetails, setFollowersDetails] = useState([]);
   const [followingDetails, setFollowingDetails] = useState([]);
