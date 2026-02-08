@@ -1,0 +1,19 @@
+.home-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 50%, #e2e8f0 100%);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.home-content {
+  padding: 20px;
+  max-width: 1280px;
+  margin: 0 auto;
+  min-height: calc(100vh - 64px);
+}
+
+@media (min-width: 769px) {
+  .home-content {
+    padding: 32px 40px 60px;
+    min-height: auto;
+  }
+}

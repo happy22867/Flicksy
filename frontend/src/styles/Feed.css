@@ -1,0 +1,135 @@
+.feed-wrapper {
+  width: 100%;
+}
+
+.feed-main {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+  .feed-main {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 28px;
+  }
+}
+
+.feed-container {
+  flex: 1;
+  min-width: 0;
+  padding-bottom: 24px;
+}
+
+/* Composer section at top */
+.feed-composer-section {
+  margin-bottom: 20px;
+}
+
+/* Filter pills */
+.feed-header {
+  margin-bottom: 20px;
+}
+
+.feed-filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-pill {
+  padding: 12px 24px;
+  background: var(--surface-elevated);
+  border: 2px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.filter-pill:hover {
+  background: var(--surface-light);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+.filter-pill.active {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent) 100%);
+  border-color: var(--primary-color);
+  color: white;
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+}
+
+/* Content area */
+.feed-content {
+  margin-top: 4px;
+}
+
+.posts-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  scroll-margin-bottom: 80px;
+}
+
+/* Loader */
+.feed-loader {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 48px 20px;
+}
+
+.feed-loader-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent) 100%);
+  animation: feedLoader 0.6s ease-in-out infinite alternate;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.feed-loader-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.feed-loader-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes feedLoader {
+  from {
+    transform: scale(0.85);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* Empty state */
+.feed-empty {
+  text-align: center;
+  padding: 80px 24px;
+  background: var(--surface-elevated);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-lg);
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  box-shadow: var(--shadow-card);
+}
+
+.feed-empty p {
+  margin: 0;
+  font-weight: 500;
+}
