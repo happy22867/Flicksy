@@ -44,7 +44,7 @@ const PostCard = ({ post, onUpdate, index = 0 }) => {
     setIsLiked(isPostLikedByUser(post, currentUserId));
     setLikesCount(Array.isArray(post.likes) ? post.likes.length : 0);
     setComments(Array.isArray(post.comments) ? post.comments : []);
-  }, [post._id, post.likes, post.comments, currentUserId]);
+  }, [post, currentUserId]);
 
   const handleLike = async () => {
     const justLiked = !isLiked;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { getAllPosts, getMyPosts, getLikedPosts } from '../context/api';
 import PostCard from './PostCard';
@@ -10,11 +10,7 @@ const Feed = () => {
   const [filter, setFilter] = useState('all');
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    fetchPosts();
-  }, [filter]);
-
-  const fetchPosts = async () => {
+  const fetchPosts = useCallback(async () => {
     setLoading(true);
     try {
       let response;
@@ -31,13 +27,17 @@ const Feed = () => {
         default:
           response = await getAllPosts();
       }
-      setPosts(response.data);
+      setPosts(response.data || []);
     } catch (error) {
       console.error('Error fetching posts:', error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [filter]);
+
+  useEffect(() => {
+    fetchPosts();
+  }, [filter, fetchPosts]);
 
   const handlePostUpdate = () => {
     fetchPosts();

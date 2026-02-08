@@ -65,10 +65,6 @@ const Profile = () => {
     }
   };
 
-  const handleEmojiPickerToggle = () => {
-    setShowEmojiPicker(!showEmojiPicker);
-  };
-
   const handleFollow = async () => {
     if (!userId || followLoading) return;
     setFollowLoading(true);

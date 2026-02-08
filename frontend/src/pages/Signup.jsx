@@ -8,7 +8,6 @@ import '../styles/Auth.css';
 
 const Signup = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -72,7 +71,7 @@ const Signup = () => {
 
     try {
       const { confirmPassword, ...signupData } = formData;
-      const response = await signupAPI(signupData);
+      await signupAPI(signupData);
       // Show success message and redirect to login
       setError('Account created successfully! Please login to continue.');
       setTimeout(() => {
