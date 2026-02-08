@@ -19,7 +19,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
   const [followLoading, setFollowLoading] = useState(false);
   const [listModal, setListModal] = useState(null);
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
   
   const [followersDetails, setFollowersDetails] = useState([]);
   const [followingDetails, setFollowingDetails] = useState([]);
@@ -63,7 +63,7 @@ const Profile = () => {
       updateUser(response.data);
       setProfile((prev) => (prev ? { ...prev, bio: response.data.bio } : null));
       setIsEditing(false);
-      setShowEmojiPicker(false);
+      
     } catch (error) {
       console.error('Error updating bio:', error);
     }
