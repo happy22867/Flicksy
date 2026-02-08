@@ -23,15 +23,6 @@ const Profile = () => {
   const currentUserId = currentUser?._id ?? currentUser?.id;
   const isOwnProfile = !userId || (currentUserId && String(userId) === String(currentUserId));
 
-  useEffect(() => {
-    fetchProfile();
-  }, [fetchProfile]);
-
-  useEffect(() => {
-    if (!profile) return;
-    setBio(profile.bio || '');
-  }, [profile]);
-
   const fetchProfile = useCallback(async (silent = false) => {
     if (!silent) setLoading(true);
     try {
@@ -52,6 +43,15 @@ const Profile = () => {
       if (!silent) setLoading(false);
     }
   }, [isOwnProfile, currentUser, userId]);
+
+  useEffect(() => {
+    fetchProfile();
+  }, [fetchProfile]);
+
+  useEffect(() => {
+    if (!profile) return;
+    setBio(profile.bio || '');
+  }, [profile]);
 
   const handleUpdateBio = async () => {
     try {
